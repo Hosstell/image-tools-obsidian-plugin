@@ -30,10 +30,10 @@
 }
 
 .image-tools-icon {
-  background-color: white;
+  background-color: var(--background-secondary);
   height: 28px;
 	width: 28px;
-	color: #000000ba;
+	color: var(--text-normal);
   padding: 5px;
   margin: 3px;
   border-radius: 4px;
@@ -42,14 +42,14 @@
 }
 
 .image-tools-icon:hover {
-  background-color: #d7e2ff;
+  background-color: var(--color-accent);
 }
 
 .image-tools-resize-item {
   position: absolute;
   bottom: 8px;
   right: 0px;
-  width: 8px;
+  width: 2px;
   height: 70px;
   top: calc(50% - 35px);
   background-color: white;
