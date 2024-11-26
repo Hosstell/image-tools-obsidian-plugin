@@ -107,3 +107,7 @@
     display: table !important;
     margin-left: auto !important;
 }
+
+.image-tools-image-url {
+    position: relative;
+}
