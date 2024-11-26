@@ -1,11 +1,10 @@
 {
 	"id": "image-tools",
 	"name": "Image Tools",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"minAppVersion": "0.15.0",
 	"description": "Formatter for image on page",
 	"author": "Andrey Serov",
 	"authorUrl": "https://github.com/Hosstell",
-	"fundingUrl": "https://github.com/Hosstell",
 	"isDesktopOnly": false
 }

@@ -1,4 +1,5 @@
 import {PluginValue, ViewUpdate} from "@codemirror/view";
+import {setIcon} from "obsidian";
 
 export default class ZoomIconItem implements PluginValue {
 	zoomIconsClassName = "zoom-icons-class-name image-tools-icons-container image-tools-icons-container-left"
@@ -22,15 +23,14 @@ export default class ZoomIconItem implements PluginValue {
 		iconsContainer.className = this.zoomIconsClassName
 
 		iconsContainer.append(this.createIconElement(
-			"https://github.com/Hosstell/image-editor-obsidian-plugin/blob/main/static/zoom.png?raw=true",
 			() => this.openImageDialog(img, imgParent)
 		))
 		img.parentNode?.append(iconsContainer)
 	}
 
-	createIconElement(src: string, clickEvent: any) {
-		const icon = document.createElement("img")
-		icon.src = src
+	createIconElement(clickEvent: any) {
+		const icon = document.createElement("div")
+		setIcon(icon, "zoom-in")
 		icon.className = "image-tools-icon"
 		icon.addEventListener("click", clickEvent)
 		return icon

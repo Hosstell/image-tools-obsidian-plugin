@@ -1,5 +1,6 @@
 import {PluginValue, ViewUpdate} from "@codemirror/view";
 import MDText from "./md-text";
+import {setIcon} from "obsidian";
 
 export default class AlignIconsItem implements PluginValue {
 	alignIconsClassName = "align-icons-class-name image-tools-icons-container image-tools-icons-container-right"
@@ -33,7 +34,7 @@ export default class AlignIconsItem implements PluginValue {
 		iconsContainer.className = this.alignIconsClassName
 
 		iconsContainer.append(this.createIconElement(
-			"https://github.com/Hosstell/image-editor-obsidian-plugin/blob/main/static/align-left.png?raw=true",
+			"align-left",
 			() => {
 				this.setNewAlignForImage(img, "left")
 				imgParent.classList.remove("images-tools-text-align-right")
@@ -42,7 +43,7 @@ export default class AlignIconsItem implements PluginValue {
 			}
 		))
 		iconsContainer.append(this.createIconElement(
-			"https://github.com/Hosstell/image-editor-obsidian-plugin/blob/main/static/align-center.png?raw=true",
+			"align-center",
 			() => {
 				this.setNewAlignForImage(img, "center")
 				imgParent.classList.remove("images-tools-text-align-right")
@@ -51,7 +52,7 @@ export default class AlignIconsItem implements PluginValue {
 			}
 		))
 		iconsContainer.append(this.createIconElement(
-			"https://github.com/Hosstell/image-editor-obsidian-plugin/blob/main/static/align-right.png?raw=true",
+			"align-right",
 			() => {
 				this.setNewAlignForImage(img, "right")
 				imgParent.classList.remove("images-tools-text-align-center")
@@ -63,9 +64,9 @@ export default class AlignIconsItem implements PluginValue {
 		imgParent.append(iconsContainer)
 	}
 
-	createIconElement(src: string, clickEvent: any) {
-		const icon = document.createElement("img")
-		icon.src = src
+	createIconElement(iconId: string, clickEvent: any) {
+		const icon = document.createElement("div")
+		setIcon(icon, iconId)
 		icon.className = 'image-tools-icon';
 		icon.addEventListener("click", clickEvent)
 		return icon
@@ -73,7 +74,6 @@ export default class AlignIconsItem implements PluginValue {
 
 	setNewAlignForImage(img: any, newAlign: string) {
 		const imgName = img.parentNode.parentNode.getAttribute("src")
-		const text = this.viewUpdate.state.doc.toString()
 		let imageText = this.mdText.getImageText(imgName)
 		let [indexStart, indexEnd] = this.mdText.getImageIndexes(imgName)
 		imageText.setAlign(newAlign)

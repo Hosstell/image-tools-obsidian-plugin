@@ -1,4 +1,5 @@
 import {PluginValue, ViewUpdate} from "@codemirror/view";
+import {setIcon} from "obsidian";
 
 export default class CopyImageItem implements PluginValue {
 	copyImageClassName = "copy-icon-container image-tools-icons-container image-tools-copy-icon"
@@ -21,16 +22,15 @@ export default class CopyImageItem implements PluginValue {
 		iconsContainer.className = this.copyImageClassName
 
 		iconsContainer.append(this.createIconElement(
-			"https://github.com/Hosstell/image-editor-obsidian-plugin/blob/main/static/copy.png?raw=true",
 			() => this.copyImage(item.src)
 		))
 
 		item.parentNode?.append(iconsContainer)
 	}
 
-	createIconElement(src: string, clickEvent: any) {
-		const icon = document.createElement("img")
-		icon.src = src
+	createIconElement(clickEvent: any) {
+		const icon = document.createElement("div")
+		setIcon(icon, "copy")
 		icon.className = 'image-tools-icon';
 		icon.addEventListener("click", clickEvent)
 		return icon
