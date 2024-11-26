@@ -49,12 +49,12 @@
   position: absolute;
   bottom: 8px;
   right: 0px;
-  width: 2px;
+  width: 6px;
   height: 70px;
   top: calc(50% - 35px);
-  background-color: white;
+  background-color: var(--background-secondary);
   border-radius: 10px;
-  border: 2px solid grey;
+  border: 1px solid var(--text-normal);
   opacity: 0;
   user-select: none;
   cursor: ew-resize;

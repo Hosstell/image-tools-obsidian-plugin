@@ -1,7 +1,7 @@
 {
 	"id": "image-tools",
 	"name": "Image Tools",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"minAppVersion": "0.15.0",
 	"description": "Formatter for image on page",
 	"author": "Andrey Serov",

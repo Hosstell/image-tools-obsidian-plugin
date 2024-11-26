@@ -8,15 +8,18 @@ export default class MDText {
 	}
 
 	getImageIndexes(imgText: string) {
-		
+		console.log("getImageIndexes", imgText)
 		if (this.isLocalImage(imgText)) {
+			console.log("isLocalImage")
 			return this.getLocalImageIndexes(imgText)
 		}
 
 		if (this.isUrlImage(imgText)) {
+			console.log("isUrlImage")
 			return this.getUrlImageIndexes(imgText)
 		}
 
+		console.log("[0, 0]")
 		return [0, 0]
 	}
 
@@ -25,17 +28,17 @@ export default class MDText {
 	}
 
 	isUrlImage(imgText: string) {
-		return this.text.indexOf(`!\[.+\]\(${imgText}\)`) !== -1
+		const regex = new RegExp(`!\\[.+\\]\\(${imgText}\\)`)
+		const match = this.text.match(regex)
+		return !!match
 	}
 
 	getLocalImageIndexes(imgText: string) {
-		
-
-		const indexStart = this.text.indexOf(`![[${imgText}`) + 3
+		const indexStart = this.text.indexOf(`![[${imgText}`)
 		let indexEnd = indexStart
 		for (let i = indexStart + 1; i < this.text.length; i++) {
 			if (this.text[i] === "]" && this.text[i+1] === "]") {
-				indexEnd = i
+				indexEnd = i + 2
 				break
 			}
 		}
@@ -43,14 +46,20 @@ export default class MDText {
 	}	
 
 	getUrlImageIndexes(imgText: string) {
-		const regex = new RegExp(`!\[.+\]\(${imgText}\)/`)
+		const regex = new RegExp(`!\\[.+\\]\\(${imgText}\\)`)
 		const match = this.text.match(regex)
-		console.log(match)
+		
+		if (match && match.index !== undefined) {
+			return [match.index, match.index + match[0].length]
+		}
+
 		return [0, 0]
 	}
 
 	getImageText(imgText: string) {
+		console.log("getImageText", imgText)
 		const [indexStart, indexEnd] = this.getImageIndexes(imgText)
+		console.log("getImageText", [indexStart, indexEnd])
 		return new ImageText(this.text.slice(indexStart, indexEnd))
 	}
 }

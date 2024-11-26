@@ -12,9 +12,9 @@ export default class extends Plugin {
 		this.registerEditorExtension([
 			ViewPlugin.fromClass(ImageUrlHandler),
 			ViewPlugin.fromClass(AlignIconsItem),
-			// ViewPlugin.fromClass(ZoomIconItem),
-			// ViewPlugin.fromClass(ResizeIconsItem),
-			// ViewPlugin.fromClass(CopyImageItem),
+			ViewPlugin.fromClass(ZoomIconItem),
+			ViewPlugin.fromClass(ResizeIconsItem),
+			ViewPlugin.fromClass(CopyImageItem),
 		]);
 	}
 }

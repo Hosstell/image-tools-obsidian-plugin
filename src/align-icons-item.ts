@@ -21,7 +21,7 @@ export default class AlignIconsItem implements PluginValue {
 			}
 
 			if (!imageContainerDiv.className.includes("images-tools-text-align-")) {
-				const textAlignClassName = "images-tools-text-align-" + this.mdText.getImageText(img.getAttribute("src")).align
+				const textAlignClassName = "images-tools-text-align-" + this.mdText.getImageText(img.parentNode.getAttribute("src")).align
 				imageContainerDiv.classList.add(textAlignClassName)
 			}
 		})
@@ -73,7 +73,7 @@ export default class AlignIconsItem implements PluginValue {
 	}
 
 	setNewAlignForImage(img: any, newAlign: string) {
-		const imgName = img.parentNode.parentNode.getAttribute("src")
+		const imgName = img.parentNode.getAttribute("src")
 		let imageText = this.mdText.getImageText(imgName)
 		let [indexStart, indexEnd] = this.mdText.getImageIndexes(imgName)
 		imageText.setAlign(newAlign)

@@ -1,5 +1,5 @@
-import {PluginValue, ViewUpdate} from "@codemirror/view";
-import {setIcon} from "obsidian";
+import { PluginValue, ViewUpdate } from "@codemirror/view";
+import { setIcon } from "obsidian";
 
 export default class ZoomIconItem implements PluginValue {
 	zoomIconsClassName = "zoom-icons-class-name image-tools-icons-container image-tools-icons-container-left"
@@ -37,8 +37,6 @@ export default class ZoomIconItem implements PluginValue {
 	}
 
 	openImageDialog(image: any, parent: any) {
-		console.log("openImageDialog")
-
 		const imageContainer = document.createElement("dialog")
 		imageContainer.className = "image-tools-image-zoom-container"
 		imageContainer.addEventListener("click", imageContainer.remove)
@@ -48,7 +46,7 @@ export default class ZoomIconItem implements PluginValue {
 		img.className = "image-tools-zoom-image"
 
 		imageContainer.append(img)
-		parent.append(imageContainer)
+		parent.parentNode.parentNode.append(imageContainer)
 		imageContainer.showModal()
 	}
 }
