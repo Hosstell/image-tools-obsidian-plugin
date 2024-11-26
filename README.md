@@ -1,6 +1,7 @@
 # Image tools [Obsidian plugin]
 
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/Hosstell/image-tools-obsidian-plugin/latest/total?style=for-the-badge&logo=github)  
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/Hosstell/image-tools-obsidian-plugin/latest/total?style=for-the-badge&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/Hosstell/image-tools-obsidian-plugin?style=for-the-badge&logo=github)
+  
 This repository is a plugin designed for Obsidian.
 
 With this plugin, you can:  
