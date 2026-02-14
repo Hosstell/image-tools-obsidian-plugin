@@ -14,6 +14,10 @@ export default class AlignIconsItem implements PluginValue {
 		
 		Array.from(imageContainerDivs).forEach((imageContainerDiv: any) => {
 			const img = imageContainerDiv.children[0]
+			const imageSource = img?.parentNode?.getAttribute("src")
+			if (!imageSource || !this.mdText.hasImage(imageSource)) {
+				return
+			}
 			
 			const classes = Array.from(imageContainerDiv.children).map((x: any) => x.className)
 			if (imageContainerDiv.children[0].tagName === "IMG" && !(classes.includes(this.alignIconsClassName))) {
@@ -21,7 +25,7 @@ export default class AlignIconsItem implements PluginValue {
 			}
 
 			if (!imageContainerDiv.className.includes("images-tools-text-align-")) {
-				const textAlignClassName = "images-tools-text-align-" + this.mdText.getImageText(img.parentNode.getAttribute("src")).align
+				const textAlignClassName = "images-tools-text-align-" + this.mdText.getImageText(imageSource).align
 				imageContainerDiv.classList.add(textAlignClassName)
 			}
 		})

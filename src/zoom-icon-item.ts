@@ -7,9 +7,15 @@ export default class ZoomIconItem implements PluginValue {
 
 	update(update: ViewUpdate) {
 		this.viewUpdate = update
+		const mdText = update.state.doc.toString()
 		const imageContainerDivs = update.view.dom.getElementsByClassName("image-embed")
 
 		Array.from(imageContainerDivs).forEach(imageContainerDiv => {
+			const imageSource = (imageContainerDiv.children[0]?.parentNode as HTMLElement | null)?.getAttribute("src")
+			if (!imageSource || (!mdText.includes(`![[${imageSource}`) && !mdText.includes(`](${imageSource})`))) {
+				return
+			}
+
 			const classes = Array.from(imageContainerDiv.children).map((x: any) => x.className)
 			if (imageContainerDiv.children[0].tagName === "IMG" && !(classes.includes(this.zoomIconsClassName))) {
 				this.addZoomIcon(imageContainerDiv.children[0])

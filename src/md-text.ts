@@ -9,6 +9,11 @@ export default class MDText {
 
 	getImageIndexes(imgText: string) {
 		console.log("getImageIndexes", imgText)
+		if (!this.hasImage(imgText)) {
+			console.log("[0, 0]")
+			return [0, 0]
+		}
+
 		if (this.isLocalImage(imgText)) {
 			console.log("isLocalImage")
 			return this.getLocalImageIndexes(imgText)
@@ -23,12 +28,21 @@ export default class MDText {
 		return [0, 0]
 	}
 
+	hasImage(imgText: string) {
+		if (!imgText) {
+			return false
+		}
+
+		return this.isLocalImage(imgText) || this.isUrlImage(imgText)
+	}
+
 	isLocalImage(imgText: string) {
 		return this.text.indexOf(`![[${imgText}`) !== -1
 	}
 
 	isUrlImage(imgText: string) {
-		const regex = new RegExp(`!\\[.+\\]\\(${imgText}\\)`)
+		const escapedImgText = this.escapeRegex(imgText)
+		const regex = new RegExp(`!\\[[^\\]]*\\]\\(${escapedImgText}\\)`)
 		const match = this.text.match(regex)
 		return !!match
 	}
@@ -46,7 +60,8 @@ export default class MDText {
 	}	
 
 	getUrlImageIndexes(imgText: string) {
-		const regex = new RegExp(`!\\[.+\\]\\(${imgText}\\)`)
+		const escapedImgText = this.escapeRegex(imgText)
+		const regex = new RegExp(`!\\[[^\\]]*\\]\\(${escapedImgText}\\)`)
 		const match = this.text.match(regex)
 		
 		if (match && match.index !== undefined) {
@@ -61,5 +76,9 @@ export default class MDText {
 		const [indexStart, indexEnd] = this.getImageIndexes(imgText)
 		console.log("getImageText", [indexStart, indexEnd])
 		return new ImageText(this.text.slice(indexStart, indexEnd))
+	}
+
+	escapeRegex(text: string) {
+		return text.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")
 	}
 }

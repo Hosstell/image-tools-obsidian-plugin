@@ -4,15 +4,25 @@ import MDText from "./md-text";
 export default class ImageUrlHandler implements PluginValue {
     flag = false
 
-    update(update: ViewUpdate) {
-        if (this.flag) {
-            return
-        }
+	update(update: ViewUpdate) {
+		if (this.flag) {
+			return
+		}
+
+		const mdText = new MDText(update.state.doc.toString())
 
 		const mainContainer = update.view.dom.getElementsByClassName('cm-content')[0];
         const images = mainContainer.getElementsByTagName("img")
 
 		Array.from(images).forEach((image: any) => {
+            if (!this.isMarkdownUrlImage(image)) {
+                return
+            }
+
+			if (!mdText.isUrlImage(image.src)) {
+				return
+			}
+
             if (image.parentNode.className.includes("image-embed") || image.parentNode.tagName === 'DIALOG') {
                 return
             }
@@ -24,4 +34,14 @@ export default class ImageUrlHandler implements PluginValue {
             wrapper.append(image)
 		})
 	}
+
+    isMarkdownUrlImage(image: HTMLImageElement) {
+        const line = image.closest(".cm-line")
+        if (!line) {
+            return false
+        }
+
+        const lineText = line.textContent ?? ""
+        return /!\[[^\]]*]\([^)]+\)/.test(lineText)
+    }
 }

@@ -13,6 +13,11 @@ export default class ResizeIconsItem implements PluginValue {
 		const images = update.view.dom.getElementsByClassName("image-embed")
 
 		Array.from(images).forEach(img => {
+			const imageSource = (img.children[0]?.parentNode as HTMLElement | null)?.getAttribute("src")
+			if (!imageSource || !this.mdText.hasImage(imageSource)) {
+				return
+			}
+
 			const classes = Array.from(img.children).map(x => x.className)
 			if (img.children[0].tagName === "IMG" && !(classes.includes(this.rightResizeIconClassName))) {
 				this.addRightResizeIcon(img.children[0])
@@ -20,6 +25,11 @@ export default class ResizeIconsItem implements PluginValue {
 		})
 
 		Array.from(images).forEach(img => {
+			const imageSource = (img.children[0]?.parentNode as HTMLElement | null)?.getAttribute("src")
+			if (!imageSource || !this.mdText.hasImage(imageSource)) {
+				return
+			}
+
 			const classes = Array.from(img.children).map(x => x.className)
 			if (img.children[0].tagName === "IMG" && !(classes.includes(this.leftResizeIconClassName))) {
 				this.addLeftResizeIcon(img.children[0])

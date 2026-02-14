@@ -7,9 +7,15 @@ export default class CopyImageItem implements PluginValue {
 
 	update(update: ViewUpdate) {
 		this.viewUpdate = update
+		const mdText = update.state.doc.toString()
 		const images = update.view.dom.getElementsByClassName("image-embed")
 
 		Array.from(images).forEach(img => {
+			const imageSource = (img.children[0]?.parentNode as HTMLElement | null)?.getAttribute("src")
+			if (!imageSource || (!mdText.includes(`![[${imageSource}`) && !mdText.includes(`](${imageSource})`))) {
+				return
+			}
+
 			const classes = Array.from(img.children).map(x => x.className)
 			if (img.children[0].tagName === "IMG" && !(classes.includes(this.copyImageClassName))) {
 				this.addCopyImageIcon(img.children[0])
